@@ -1,0 +1,12 @@
+程式介紹:
+    compiler1 裡新增了
+        1.Switch語法
+        2./**/ 註釋用法
+    new.c 裡驗證
+        1.Switch
+        2.註釋
+
+使用方法:
+gcc compiler1.c lexer.c main.c -o compiler1.exe
+./compiler1.exe test/new.c
+
