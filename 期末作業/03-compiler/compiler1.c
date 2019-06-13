@@ -137,19 +137,19 @@ void IF() {
       if(isNext("case")) count++;
       tokenIdx++;
     }
-    int endlabel = nextone + count; // (L endlabel)
+    int endlabel = count; // (L endlabel)
     tokenIdx = temp;
     // 再將取出來使用的tokenIdx 改回原值 
     while (isNext("case")) {
       skip("case");
-      emit("(L%d)\n", nextone);
-      int cc = E();
-      int i = nextTemp();
+      emit("(L%d)\n", nextone); // 此片段的 L?
+      int cc = E(); //讀取case判定
+      int i = nextTemp(); // t?
       emit("t%d = t%d != t%d\n", i, e, cc);
-      nextone = nextLabel();
-      emit("if t%d goto L%d\n", i, nextone);
+      nextone = nextLabel(); 
+      emit("if t%d goto L%d\n", i, nextone); //若 t? 符合 goto 下一個片段
       skip(":");
-      STMT();
+      STMT(); // case片段內程式
       skip("break");
       skip(";");
       emit("goto L%d\n", endlabel);
@@ -157,8 +157,8 @@ void IF() {
     if (isNext("default")) {
       skip("default");
       skip(":");
-      emit("(L%d)\n", nextone);
-      STMT();
+      emit("(L%d)\n", nextone); //default的 L?
+      STMT(); // default內 程式
       skip("}");
     }
     emit("(L%d)\n", endlabel);
