@@ -40,7 +40,7 @@ void genOp1(int i, char c) {
   printf("# t%d=%c\n", i, c);
   // t1=3 轉成 @3; D=A; @t1; M=D
   printf("@%c\n", c);
-  (isdigit(c)) ?   printf("D=A\n") : printf("D=M\n");
+  (isdigit(c)) ?   printf("D=A\n") : printf("D=M\n"); //  數字是抓A
   printf("@t%d\n", i);
   printf("M=D\n");
 }
@@ -74,7 +74,10 @@ int E() {
 int F() {
   int f;
   char c = ch();
-  if (isdigit(c)||isalpha(c)) {
+  // isdigit()如果c是一個數字返回非零值，否則為0
+  // isalpha()如果c是一個字母，這個函數返回非零值
+
+  if (isdigit(c)||isalpha(c)) {   
     next(); // skip c
     f = nextTemp();
     genOp1(f, c);
@@ -115,3 +118,8 @@ int main(int argc, char * argv[]) {
   printf("==== parse:%s ========\n", argv[1]);
   parse(argv[1]);
 }
+/*argv則是argument value的縮寫。代表參數值。
+也就是使用者在命令列中輸入的字串，每個字串以空白相隔。
+同時，系統會自動將程式本身的名稱指定給argv[0]，
+再將程式名稱後面所接續的參數依序指定給argv[1]、argv[2]….。
+ */
